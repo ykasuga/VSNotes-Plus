@@ -1,18 +1,18 @@
 const vscode = require('vscode');
 const path = require('path');
-const { getTags } = require('./getTags');
+const { getTasks } = require('./getTasks');
 const { resolveHome } = require('./utils');
 
-module.exports = () => {
+module.exports = function () {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const noteFolder = resolveHome(config.get('defaultNotePath'));
   const noteFolderLen = noteFolder.length;
 
-  getTags(noteFolder, true).then(files => {
-    vscode.window.showQuickPick(Object.keys(files)).then(tag => {
-      if (tag != null) {
+  getTasks(noteFolder).then(tasks => {
+    vscode.window.showQuickPick(Object.keys(tasks)).then(task => {
+      if (task != null) {
 
-        let shortPaths = files[tag].map(function (item) {
+        let shortPaths = tasks[task].map(function (item) {
           return item.slice(noteFolderLen + 1, item.length);
         })
 
