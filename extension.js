@@ -3,7 +3,7 @@ const vscode = require('vscode');
 const { newNote, newNoteInWorkspace } = require('./src/newNote');
 const listNotes = require('./src/listNotes');
 const listTags = require('./src/listTags')
-const listTasks = require('./src/listTasks')
+//const listTasks = require('./src/listTasks')
 const setupNotes = require('./src/setupNotes');
 const VSNotesTreeView = require('./src/treeView');
 const commitPush = require('./src/commitPush');
@@ -40,8 +40,8 @@ function activate(context) {
   context.subscriptions.push(listTagsDisposable);
 
   // List tasks
-  let listTasksDisposable = vscode.commands.registerCommand('vsnotes.listTasks', listTasks);
-  context.subscriptions.push(listTasksDisposable);
+  //let listTasksDisposable = vscode.commands.registerCommand('vsnotes.listTasks', listTasks);
+  //context.subscriptions.push(listTasksDisposable);
 
   // Run setup
   let setupDisposable = vscode.commands.registerCommand('vsnotes.setupNotes', setupNotes);
@@ -66,11 +66,12 @@ function activate(context) {
     return vscode.commands.executeCommand('vscode.openFolder', uri, true);
   })
   context.subscriptions.push(openNoteFolderDisposable);
-
 }
-exports.activate = activate;
 
 // this method is called when your extension is deactivated
-function deactivate() {
+function deactivate() { }
+
+module.exports = {
+  activate,
+  deactivate
 }
-exports.deactivate = deactivate;
