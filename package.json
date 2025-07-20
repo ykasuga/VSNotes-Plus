@@ -1,12 +1,12 @@
 {
-  "name": "vsnotes-todo",
-  "displayName": "VSNotes+ToDo",
+  "name": "vsnotes-plus",
+  "displayName": "VSNotes-Plus",
   "description": "Simple VS Code extension for plain text note taking + ToDo tracking",
   "version": "0.1.5",
   "publisher": "mafut",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mafut/VSNotes-ToDo.git"
+    "url": "https://github.com/mafut/vsnotes-plus.git"
   },
   "icon": "media/icon/vsnotes_icon.png",
   "license": "MIT",
@@ -44,7 +44,7 @@
   "contributes": {
     "configuration": {
       "type": "object",
-      "title": "VSNotes+ToDo Configuration",
+      "title": "VSNotes-Plus Configuration",
       "properties": {
         "vsnotes.defaultNotePath": {
           "type": "string",
@@ -237,7 +237,7 @@
     "commands": [
       {
         "command": "vsnotes.newNote",
-        "title": "VSNotes+ToDo: Create a New Note",
+        "title": "VSNotes-Plus: Create a New Note",
         "icon": {
           "light": "./media/light/add.svg",
           "dark": "./media/dark/add.svg"
@@ -245,47 +245,47 @@
       },
       {
         "command": "vsnotes.newNoteInWorkspace",
-        "title": "VSNotes+ToDo: Create a New Note in a workspace."
+        "title": "VSNotes-Plus: Create a New Note in a workspace."
       },
       {
         "command": "vsnotes.delNote",
-        "title": "VSNotes+ToDo: Delete"
+        "title": "VSNotes-Plus: Delete"
       },
       {
         "command": "vsnotes.listNotes",
-        "title": "VSNotes+ToDo: List recent notes"
+        "title": "VSNotes-Plus: List recent notes"
       },
       {
         "command": "vsnotes.listNotes",
-        "title": "VSNotes+ToDo: Open note"
+        "title": "VSNotes-Plus: Open note"
       },
       {
         "command": "vsnotes.listTags",
-        "title": "VSNotes+ToDo: List tags"
+        "title": "VSNotes-Plus: List tags"
       },
       {
         "command": "vsnotes.openNoteFolder",
-        "title": "VSNotes+ToDo: Open Note Folder"
+        "title": "VSNotes-Plus: Open Note Folder"
       },
       {
         "command": "vsnotes.setupNotes",
-        "title": "VSNotes+ToDo: Run setup"
+        "title": "VSNotes-Plus: Run setup"
       },
       {
         "command": "vsnotes.commitPush",
-        "title": "VSNotes+ToDo: Commit and Push"
+        "title": "VSNotes-Plus: Commit and Push"
       },
       {
         "command": "vsnotes.pull",
-        "title": "VSNotes+ToDo: Pull"
+        "title": "VSNotes-Plus: Pull"
       },
       {
         "command": "vsnotes.search",
-        "title": "VSNotes+ToDo: Search notes"
+        "title": "VSNotes-Plus: Search notes"
       },
       {
         "command": "vsnotes.refresh",
-        "title": "VSNotes+ToDo: Refresh",
+        "title": "VSNotes-Plus: Refresh",
         "icon": {
           "light": "./media/light/refresh.svg",
           "dark": "./media/dark/refresh.svg"
@@ -309,7 +309,7 @@
       "vsnotes": [
         {
           "id": "vsnotes",
-          "name": "VS Notes+ToDo"
+          "name": "VS Notes-Plus"
         }
       ]
     },
@@ -317,7 +317,7 @@
       "activitybar": [
         {
           "id": "vsnotes",
-          "title": "VS Notes+ToDo",
+          "title": "VS Notes-Plus",
           "icon": "./media/icon/vsnotes_icon.svg"
         }
       ]

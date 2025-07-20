@@ -1,15 +1,15 @@
-# VSNotes+ToDo ワークスペース情報
+# VSNotes-Plus ワークスペース情報
 
 ## 概要
 
-このドキュメントは、`VSNotes+ToDo`拡張機能の現在の実装状況と、将来の機能追加に向けた情報をまとめたものです。
+このドキュメントは、`VSNotes-Plus`拡張機能の現在の実装状況と、将来の機能追加に向けた情報をまとめたものです。
 
 ## プロジェクト基本情報 (package.jsonより)
 
-- **名称:** VSNotes+ToDo (`vsnotes-todo`)
+- **名称:** VSNotes-Plus (`vsnotes-plus`)
 - **説明:** プレーンテキストでのノート作成とToDo管理のためのシンプルなVS Code拡張機能。
 - **バージョン:** 0.1.5
-- **リポジトリ:** [https://github.com/mafut/VSNotes-ToDo.git](https://github.com/mafut/VSNotes-ToDo.git)
+- **リポジトリ:** [https://github.com/mafut/vsnotes-plus.git](https://github.com/mafut/vsnotes-plus.git)
 - **ライセンス:** MIT
 - **対象VSCodeバージョン:** ^1.80.0
 

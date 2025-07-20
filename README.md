@@ -1,4 +1,4 @@
-# VS NOTES + TODO
+# VS NOTES - Plus
 
 Forked from <https://github.com/patleeman/VSNotes> 0.8.0 and added ToDo tracking.
 
@@ -22,13 +22,13 @@ Forked from <https://github.com/patleeman/VSNotes> 0.8.0 and added ToDo tracking
 
 ## Repository
 
-VS Notes + ToDo is MIT Licensed and available on [Github](https://github.com/mafut/VSNotes-ToDo)
+VS Notes + ToDo is MIT Licensed and available on [Github](https://github.com/mafut/vsnotes-plus)
 
 ## Features
 
 ### Screenshot
 
-![](https://github.com/mafut/VSNotes-ToDo/raw/master/img/vsnotes_view.png)
+![](https://github.com/mafut/vsnotes-plus/raw/master/img/vsnotes_view.png)
 
 ### Inheritated from original VS Notes
 
@@ -163,7 +163,7 @@ Available settings
 
 ## Roadmap & Features
 
-[See Github Issues](https://github.com/mafut/VSNotes-ToDo/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+[See Github Issues](https://github.com/mafut/vsnotes-plus/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 
 ## Change log
 
@@ -175,4 +175,4 @@ Available settings
 
 ## Reviews
 
-[Do you like VS Notes+ToDo? Leave a review.](https://marketplace.visualstudio.com/items?itemName=mafut.vsnotes-todo#review-details)
+[Do you like VS Notes+ToDo? Leave a review.](https://marketplace.visualstudio.com/items?itemName=mafut.vsnotes-plus#review-details)
