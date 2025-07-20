@@ -290,6 +290,10 @@
           "light": "./media/light/refresh.svg",
           "dark": "./media/dark/refresh.svg"
         }
+      },
+      {
+        "command": "vsnotes.newDirectory",
+        "title": "VSNotes-Plus: New Directory"
       }
     ],
     "keybindings": [
@@ -337,14 +341,19 @@
       ],
       "view/item/context": [
         {
+          "command": "vsnotes.newDirectory",
+          "when": "view == vsnotes && (viewItem == 'files-directory' || viewItem == 'rootFile')",
+          "group": "group1@1"
+        },
+        {
           "command": "vsnotes.newNote",
           "when": "view == vsnotes",
-          "group": "group1@1"
+          "group": "group1@2"
         },
         {
           "command": "vsnotes.delNote",
           "when": "view == vsnotes",
-          "group": "group1@2"
+          "group": "group1@3"
         }
       ]
     }
