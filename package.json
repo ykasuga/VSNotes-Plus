@@ -1,8 +1,8 @@
 {
   "name": "vsnotes-plus",
   "displayName": "VSNotes-Plus",
-  "description": "Simple VS Code extension for plain text note taking + ToDo tracking",
-  "version": "0.1.5",
+  "description": "Simple VS Code extension for plain text note taking + ToDo tracking + additional features",
+  "version": "0.1.0",
   "publisher": "mafut",
   "repository": {
     "type": "git",
