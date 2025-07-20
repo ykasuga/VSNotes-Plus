@@ -12,6 +12,7 @@ const commitPush = require('./src/commitPush');
 const pull = require('./src/pull');
 const search = require('./src/search');
 const utils = require('./src/utils');
+const FileLinkProvider = require('./src/fileLink');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -95,6 +96,14 @@ function activate(context) {
     return vscode.commands.executeCommand('vscode.openFolder', uri, true);
   });
   context.subscriptions.push(openNoteFolderDisposable);
+
+  // file link
+  const fileLinkProvider = new FileLinkProvider();
+  const disposable = vscode.languages.registerDocumentLinkProvider(
+    { language: 'markdown' },
+    fileLinkProvider
+  );
+  context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
