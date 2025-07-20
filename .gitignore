@@ -1,4 +1,20 @@
-node_modules
+# Node.js
+node_modules/
+.env
+npm-debug.log*
+yarn-error.log*
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
 .vscode-test/
+
+# System Files
 .DS_Store
+
+# Build artifacts
 *.vsix
+
+# Other
+Notes/
+memory-bank/

@@ -49,16 +49,35 @@ function getTags(noteFolderPath, isCommand = false) {
         Promise.all(files).then(files => {
           // file list by tag
           let fileByTag = {};
+          // hierarchical tags
+          let hTags = {};
 
           for (let i = 0; i < files.length; i++) {
             if (files[i] != null && files[i]) {
               const parsedFrontMatter = parseFrontMatter(files[i]);
               if (parsedFrontMatter && 'tags' in parsedFrontMatter.data && parsedFrontMatter.data.tags) {
                 for (let tag of parsedFrontMatter.data.tags) {
+                  // for command
                   if (tag in fileByTag) {
                     fileByTag[tag].push(files[i].payload);
                   } else {
                     fileByTag[tag] = [files[i].payload];
+                  }
+                  // for tree view
+                  const tagPath = tag.split('/');
+                  let current = hTags;
+                  for (let j = 0; j < tagPath.length; j++) {
+                    const tagPart = tagPath[j];
+                    if (!current[tagPart]) {
+                      current[tagPart] = {};
+                    }
+                    if (j === tagPath.length - 1) {
+                      if (!current[tagPart].files) {
+                        current[tagPart].files = [];
+                      }
+                      current[tagPart].files.push(files[i].payload);
+                    }
+                    current = current[tagPart];
                   }
                 }
               }
@@ -70,20 +89,35 @@ function getTags(noteFolderPath, isCommand = false) {
             resolve(fileByTag);
           } else {
             // tag list with files
-            let tags = [];
-            for (let tag of Object.keys(fileByTag)) {
-              tags.push({
-                type: "tag",
-                tag: tag,
-                files: fileByTag[tag],
+            const convertToTree = (obj) => {
+              const result = [];
+              for (const key in obj) {
+                const node = {
+                  type: "tag",
+                  tag: key,
+                };
+                const childrenKeys = Object.keys(obj[key]).filter(k => k !== 'files');
+                const childrenObj = {};
+                if (childrenKeys.length > 0) {
+                  for (const childKey of childrenKeys) {
+                    childrenObj[childKey] = obj[key][childKey];
+                  }
+                  node.children = convertToTree(childrenObj);
+                }
+
+                if (obj[key].files) {
+                  node.files = obj[key].files;
+                }
+                result.push(node);
+              }
+              // Sort tags alphabetically
+              result.sort(function (a, b) {
+                return a.tag > b.tag ? 1 : b.tag > a.tag ? -1 : 0;
               });
-            }
+              return result;
+            };
 
-            // Sort tags alphabetically
-            tags.sort(function (a, b) {
-              return a.tag > b.tag ? 1 : b.tag > a.tag ? -1 : 0;
-            });
-
+            const tags = convertToTree(hTags);
             resolve(tags);
           };
         }).catch(err => {
@@ -110,4 +144,3 @@ function parseFrontMatter(file) {
 module.exports = {
   getTags
 }
-

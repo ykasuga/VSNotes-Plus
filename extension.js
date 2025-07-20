@@ -1,4 +1,6 @@
 const vscode = require('vscode');
+const fs = require('fs');
+const path = require('path');
 
 const { newNote, newNoteInWorkspace, delNote } = require('./src/note');
 const listNotes = require('./src/listNotes');
@@ -23,6 +25,29 @@ function activate(context) {
   // Go to
   vscode.commands.registerCommand('vsnotes.gotoTask', (item) => tv.goto(item));
 
+  // Create a new directory
+  const newDirectory = (node) => {
+    let parentPath;
+    if (node && node.path) {
+      parentPath = node.path;
+    } else {
+      const noteFolder = vscode.workspace.getConfiguration('vsnotes').get('defaultNotePath');
+      parentPath = utils.resolveHome(noteFolder);
+    }
+
+    vscode.window.showInputBox({
+      prompt: 'Enter the name of the new directory'
+    }).then(dirName => {
+      if (dirName) {
+        const newDirPath = path.join(parentPath, dirName);
+        fs.mkdirSync(newDirPath);
+        tv.refresh();
+      }
+    });
+  };
+  let newDirectoryDisposable = vscode.commands.registerCommand('vsnotes.newDirectory', newDirectory);
+  context.subscriptions.push(newDirectoryDisposable);
+
   // Create a new note
   let newNoteDisposable = vscode.commands.registerCommand('vsnotes.newNote', newNote);
   context.subscriptions.push(newNoteDisposable);
@@ -30,7 +55,7 @@ function activate(context) {
   // Create a new note in a current workspace
   let newNoteInWorkspaceDisposable = vscode.commands.registerCommand('vsnotes.newNoteInWorkspace', newNoteInWorkspace);
   context.subscriptions.push(newNoteInWorkspaceDisposable);
-  
+
   // Delete a note
   let delNoteDisposable = vscode.commands.registerCommand('vsnotes.delNote', delNote);
   context.subscriptions.push(delNoteDisposable);

@@ -54,7 +54,9 @@ class VSNotesTreeView {
         case "rootFile":
           return Promise.resolve(getNotes(this.baseDir));
         case "tag":
-          return node.files;
+          const children = node.children || [];
+          const files = node.files || [];
+          return [...children, ...files];
         case "taskGroup":
           if (node.tasks.length > 0) return node.tasks;
           return null;
@@ -88,6 +90,7 @@ class VSNotesTreeView {
     switch (node.type) {
       case "rootTag":
         let rootTagTreeItem = new vscode.TreeItem("Tags", vscode.TreeItemCollapsibleState.Expanded);
+        rootTagTreeItem.contextValue = "rootTag";
         rootTagTreeItem.iconPath = {
           light: path.join(__filename, "..", "..", "media", "light", "tag.svg"),
           dark: path.join(__filename, "..", "..", "media", "dark", "tag.svg"),
@@ -95,6 +98,7 @@ class VSNotesTreeView {
         return rootTagTreeItem;
       case "rootTask":
         let rootTaskTreeItem = new vscode.TreeItem("Tasks", vscode.TreeItemCollapsibleState.Expanded);
+        rootTaskTreeItem.contextValue = "rootTask";
         rootTaskTreeItem.iconPath = {
           light: path.join(__filename, "..", "..", "media", "light", "tasks.svg"),
           dark: path.join(__filename, "..", "..", "media", "dark", "tasks.svg"),
@@ -102,16 +106,21 @@ class VSNotesTreeView {
         return rootTaskTreeItem;
       case "rootFile":
         let rootFileTreeItem = new vscode.TreeItem("Files", vscode.TreeItemCollapsibleState.Expanded);
+        rootFileTreeItem.contextValue = "rootFile";
         rootFileTreeItem.iconPath = {
           light: path.join(__filename, "..", "..", "media", "light", "file-directory.svg"),
           dark: path.join(__filename, "..", "..", "media", "dark", "file-directory.svg"),
         };
         return rootFileTreeItem;
       case "tag":
+        const tagState = node.children
+          ? vscode.TreeItemCollapsibleState.Collapsed
+          : vscode.TreeItemCollapsibleState.None;
         let tagTreeItem = new vscode.TreeItem(
           node.tag,
-          vscode.TreeItemCollapsibleState.Collapsed
+          node.files && node.files.length > 0 ? vscode.TreeItemCollapsibleState.Collapsed : tagState
         );
+        tagTreeItem.contextValue = "tag";
         tagTreeItem.iconPath = {
           light: path.join(__filename, "..", "..", "media", "light", "tag.svg"),
           dark: path.join(__filename, "..", "..", "media", "dark", "tag.svg"),
@@ -122,6 +131,7 @@ class VSNotesTreeView {
           node.group,
           vscode.TreeItemCollapsibleState.Collapsed
         );
+        taskGroupTreeItem.contextValue = "taskGroup";
         taskGroupTreeItem.iconPath = {
           light: path.join(__filename, "..", "..", "media", "light", "group.svg"),
           dark: path.join(__filename, "..", "..", "media", "dark", "group.svg"),
@@ -132,6 +142,7 @@ class VSNotesTreeView {
           node.task,
           vscode.TreeItemCollapsibleState.None
         );
+        taskTreeItem.contextValue = "task";
 
         taskTreeItem.command = {
           command: "vsnotes.gotoTask",
@@ -151,6 +162,7 @@ class VSNotesTreeView {
           ? vscode.TreeItemCollapsibleState.Collapsed
           : vscode.TreeItemCollapsibleState.None;
         let fileTreeItem = new vscode.TreeItem(node.file, state);
+        fileTreeItem.contextValue = isDir ? "files-directory" : "files-file";
         fileTreeItem.iconPath = {
           light: path.join(__filename, "..", "..", "media", "light", isDir ? "file-directory.svg" : "file.svg"),
           dark: path.join(__filename, "..", "..", "media", "dark", isDir ? "file-directory.svg" : "file.svg"),
