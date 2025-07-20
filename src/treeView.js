@@ -54,7 +54,9 @@ class VSNotesTreeView {
         case "rootFile":
           return Promise.resolve(getNotes(this.baseDir));
         case "tag":
-          return node.files;
+          const children = node.children || [];
+          const files = node.files || [];
+          return [...children, ...files];
         case "taskGroup":
           if (node.tasks.length > 0) return node.tasks;
           return null;
@@ -111,9 +113,12 @@ class VSNotesTreeView {
         };
         return rootFileTreeItem;
       case "tag":
+        const tagState = node.children
+          ? vscode.TreeItemCollapsibleState.Collapsed
+          : vscode.TreeItemCollapsibleState.None;
         let tagTreeItem = new vscode.TreeItem(
           node.tag,
-          vscode.TreeItemCollapsibleState.Collapsed
+          node.files && node.files.length > 0 ? vscode.TreeItemCollapsibleState.Collapsed : tagState
         );
         tagTreeItem.contextValue = "tag";
         tagTreeItem.iconPath = {
