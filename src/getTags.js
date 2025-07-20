@@ -96,10 +96,15 @@ function getTags(noteFolderPath, isCommand = false) {
                   type: "tag",
                   tag: key,
                 };
-                const children = Object.keys(obj[key]).filter(k => k !== 'files');
-                if (children.length > 0) {
-                  node.children = convertToTree(obj[key]);
+                const childrenKeys = Object.keys(obj[key]).filter(k => k !== 'files');
+                const childrenObj = {};
+                if (childrenKeys.length > 0) {
+                  for (const childKey of childrenKeys) {
+                    childrenObj[childKey] = obj[key][childKey];
+                  }
+                  node.children = convertToTree(childrenObj);
                 }
+
                 if (obj[key].files) {
                   node.files = obj[key].files;
                 }
