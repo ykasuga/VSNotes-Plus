@@ -3,10 +3,10 @@
   "displayName": "VSNotes-Plus",
   "description": "Simple VS Code extension for plain text note taking + ToDo tracking + additional features",
   "version": "0.1.0",
-  "publisher": "mafut",
+  "publisher": "ykasuga",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mafut/vsnotes-plus.git"
+    "url": "https://github.com/ykasuga/VSNotes-Plus.git"
   },
   "icon": "media/icon/vsnotes_icon.png",
   "license": "MIT",
