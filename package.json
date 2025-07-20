@@ -337,8 +337,14 @@
       ],
       "view/item/context": [
         {
+          "command": "vsnotes.newNote",
+          "when": "view == vsnotes",
+          "group": "group1@1"
+        },
+        {
           "command": "vsnotes.delNote",
-          "when": "view == vsnotes"
+          "when": "view == vsnotes",
+          "group": "group1@2"
         }
       ]
     }
