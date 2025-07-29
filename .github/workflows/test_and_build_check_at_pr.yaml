@@ -1,0 +1,15 @@
+name: test_and_build_check_at_pr
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: npm ci
+      - name: check-build
+        run: npx vsce package
