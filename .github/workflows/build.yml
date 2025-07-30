@@ -3,7 +3,7 @@ name: Build and Upload Artifact
 on:
   push:
     branches:
-      - main  # ← ここを目的のブランチに変更
+      - master  # ← ここを目的のブランチに変更
 
 jobs:
   build:
