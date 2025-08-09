@@ -294,6 +294,10 @@
       {
         "command": "vsnotes.newDirectory",
         "title": "VSNotes-Plus: New Directory"
+      },
+      {
+        "command": "vsnotes.renameNote",
+        "title": "VSNotes-Plus: Rename"
       }
     ],
     "keybindings": [
@@ -354,6 +358,11 @@
           "command": "vsnotes.delNote",
           "when": "view == vsnotes",
           "group": "group1@3"
+        },
+        {
+          "command": "vsnotes.renameNote",
+          "when": "view == vsnotes && viewItem == 'files-file'",
+          "group": "group1@4"
         }
       ]
     }

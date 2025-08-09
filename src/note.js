@@ -73,6 +73,34 @@ function delNote(context) {
   }
 }
 
+function renameNote(context) {
+  if (context && context.path && fs.existsSync(context.path)) {
+    const oldPath = context.path;
+    const oldName = path.basename(oldPath);
+
+    vscode.window.showInputBox({
+      prompt: 'Enter the new name for the note',
+      value: oldName
+    }).then(newName => {
+      if (newName && newName !== oldName) {
+        const newPath = path.join(path.dirname(oldPath), newName);
+        if (fs.existsSync(newPath)) {
+          vscode.window.showErrorMessage(`File "${newName}" already exists. Please choose a different name.`);
+          return;
+        }
+        fs.rename(oldPath, newPath)
+          .then(() => {
+            vscode.commands.executeCommand('vsnotes.refresh');
+          })
+          .catch(err => {
+            console.error(err);
+            vscode.window.showErrorMessage('Error renaming note.');
+          });
+      }
+    });
+  }
+}
+
 async function createNote({ noteFolder, template }) {
   const config = vscode.workspace.getConfiguration('vsnotes');
   const defaultNoteName = config.get('defaultNoteName');
@@ -217,5 +245,6 @@ function replaceTokens(format, title, tokens) {
 module.exports = {
   newNote,
   newNoteInWorkspace,
-  delNote
+  delNote,
+  renameNote
 }
