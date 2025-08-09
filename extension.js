@@ -115,7 +115,8 @@ function activate(context) {
   const completionDisposable = vscode.languages.registerCompletionItemProvider(
     { language: 'markdown' },
     completionProvider,
-    '['
+    '[',
+    ' '
   );
   context.subscriptions.push(completionDisposable);
 }
