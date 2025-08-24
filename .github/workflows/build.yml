@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3  # 言語に応じて変えてください
         with:
-          node-version: '18.20'
+          node-version: '20.18'
 
       - name: Install dependencies
         run: npm install  # ビルドに必要な処理
