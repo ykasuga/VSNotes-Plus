@@ -2,7 +2,7 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 
-const { newNote, newNoteInWorkspace, delNote } = require('./src/note');
+const { newNote, newNoteInWorkspace, delNote, renameNote } = require('./src/note');
 const listNotes = require('./src/listNotes');
 const listTags = require('./src/listTags');
 //const listTasks = require('./src/listTasks');
@@ -62,6 +62,10 @@ function activate(context) {
   let delNoteDisposable = vscode.commands.registerCommand('vsnotes.delNote', delNote);
   context.subscriptions.push(delNoteDisposable);
 
+  // Rename a note
+  let renameNoteDisposable = vscode.commands.registerCommand('vsnotes.renameNote', renameNote);
+  context.subscriptions.push(renameNoteDisposable);
+
   // Open a note
   let listNotesDisposable = vscode.commands.registerCommand('vsnotes.listNotes', listNotes);
   context.subscriptions.push(listNotesDisposable);
@@ -111,7 +115,8 @@ function activate(context) {
   const completionDisposable = vscode.languages.registerCompletionItemProvider(
     { language: 'markdown' },
     completionProvider,
-    '['
+    '[',
+    ' '
   );
   context.subscriptions.push(completionDisposable);
 }
