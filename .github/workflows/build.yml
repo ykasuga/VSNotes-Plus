@@ -1,6 +1,7 @@
 name: Build and Upload Artifact
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master  # ← ここを目的のブランチに変更
