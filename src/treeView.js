@@ -107,7 +107,7 @@ class VSNotesTreeView {
         };
         return rootTaskTreeItem;
       case "rootFile":
-        let rootFileTreeItem = new vscode.TreeItem("Files", vscode.TreeItemCollapsibleState.Expanded);
+        let rootFileTreeItem = new vscode.TreeItem("Files", vscode.TreeItemCollapsibleState.Collapsed);
         rootFileTreeItem.contextValue = "rootFile";
         rootFileTreeItem.iconPath = {
           light: path.join(__filename, "..", "..", "media", "light", "file-directory.svg"),
