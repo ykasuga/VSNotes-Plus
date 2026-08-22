@@ -107,13 +107,15 @@ function getTags(noteFolderPath, isCommand = false) {
                 }
 
                 if (obj[key].files) {
-                  node.files = obj[key].files;
+                  node.files = obj[key].files.slice().sort(function (a, b) {
+                    return a.file.localeCompare(b.file, undefined, { sensitivity: 'base' });
+                  });
                 }
                 result.push(node);
               }
-              // Sort tags alphabetically
+              // Sort tags alphabetically (case-insensitive)
               result.sort(function (a, b) {
-                return a.tag > b.tag ? 1 : b.tag > a.tag ? -1 : 0;
+                return a.tag.localeCompare(b.tag, undefined, { sensitivity: 'base' });
               });
               return result;
             };
