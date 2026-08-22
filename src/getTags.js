@@ -57,6 +57,7 @@ function getTags(noteFolderPath, isCommand = false) {
               const parsedFrontMatter = parseFrontMatter(files[i]);
               if (parsedFrontMatter && 'tags' in parsedFrontMatter.data && parsedFrontMatter.data.tags) {
                 for (let tag of parsedFrontMatter.data.tags) {
+                  if (tag == null) continue;
                   // for command
                   if (tag in fileByTag) {
                     fileByTag[tag].push(files[i].payload);

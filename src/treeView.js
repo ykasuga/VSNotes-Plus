@@ -8,15 +8,15 @@ const { resolveHome } = require("./utils");
 class VSNotesTreeView {
   constructor() {
     const config = vscode.workspace.getConfiguration("vsnotes");
-    this.baseDir = resolveHome(config.get("defaultNotePath"));
+    this.baseDir = resolveHome(config.get("defaultNotePath") || "");
+    const ignorePatterns = config.get("ignorePatterns") || [];
     this.ignorePattern = new RegExp(
-      config
-        .get("ignorePatterns")
+      ignorePatterns
         .map(function (pattern) { return "(" + pattern + ")"; })
-        .join("|"));
-    this.hideTags = config.get("treeviewHideTags");
-    this.hideTasks = config.get("treeviewHideTasks");
-    this.hideFiles = config.get("treeviewHideFiles");
+        .join("|") || "(?!x)x");
+    this.hideTags = config.get("treeviewHideTags") || false;
+    this.hideTasks = config.get("treeviewHideTasks") || false;
+    this.hideFiles = config.get("treeviewHideFiles") || false;
 
 
     this.emitter = new vscode.EventEmitter();
@@ -48,22 +48,24 @@ class VSNotesTreeView {
     if (node) {
       switch (node.type) {
         case "rootTag":
-          return Promise.resolve(getTags(this.baseDir));
+          if (!this.baseDir) return Promise.resolve([]);
+          return getTags(this.baseDir).catch(() => []);
         case "rootTask":
-          return Promise.resolve(getTasks(this.baseDir));
+          if (!this.baseDir) return Promise.resolve([]);
+          return getTasks(this.baseDir).catch(() => []);
         case "rootFile":
-          return Promise.resolve(getNotes(this.baseDir));
+          if (!this.baseDir) return Promise.resolve([]);
+          return getNotes(this.baseDir).catch(() => []);
         case "tag":
           const children = node.children || [];
           const files = node.files || [];
-          return [...children, ...files];
+          return Promise.resolve([...children, ...files]);
         case "taskGroup":
-          if (node.tasks.length > 0) return node.tasks;
-          return null;
+          return Promise.resolve(node.tasks && node.tasks.length > 0 ? node.tasks : []);
         case "task":
-          return null;
+          return Promise.resolve([]);
         case "file":
-          return Promise.resolve(getNotes(node.path));
+          return getNotes(node.path).catch(() => []);
       }
     } else {
       const treeview = [];
